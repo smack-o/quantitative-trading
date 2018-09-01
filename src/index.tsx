@@ -15,21 +15,21 @@ const store = configureStore(history);
 renderWithHotReload(App);
 
 if (module.hot) {
-    module.hot.accept('@/router', () => {
-        const NextApp = require('@/router').default;
-        renderWithHotReload(NextApp);
-    });
+  module.hot.accept('@/router', () => {
+    const NextApp = require('@/router').default;
+    renderWithHotReload(NextApp);
+  });
 }
 
 function renderWithHotReload(RootElement: any) {
-    ReactDOM.render(
-        <AppContainer>
-            <Provider store={store}>
-                <ConnectedRouter history={history}>
-                    <App />
-                </ConnectedRouter>
-            </Provider>
-        </AppContainer>,
-        document.getElementById('app')
-    );
+  ReactDOM.render(
+    <AppContainer>
+      <Provider store={store}>
+        <ConnectedRouter history={history}>
+          <App />
+        </ConnectedRouter>
+      </Provider>
+    </AppContainer>,
+    document.getElementById('app')
+  );
 }

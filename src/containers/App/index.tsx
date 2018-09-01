@@ -5,13 +5,13 @@ import { Router } from '@/router';
 import '@/assets/global.less';
 
 export class App extends React.Component {
-    render(): JSX.Element {
-        return (
-            <div>
-                <Header/>
-                <Router/>
-                <Footer/>
-            </div>
-        );
-    }
+  render(): JSX.Element {
+    return (
+      <div>
+        <Header />
+        <Router />
+        <Footer />
+      </div>
+    );
+  }
 }
