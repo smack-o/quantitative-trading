@@ -27,15 +27,15 @@ export default class Test extends Common {
     }
     render() {
         return (
-            <div className="normal">
+          <div className='normal'>
                 tests111
-                <Loading loading={this.state.loading}/>
-                <Button onClick={this.testClick}>Button</Button>
-                {this.props.count}
-                <Button onClick={this.onIncrease}>increase</Button>
-                <Button onClick={this.onDecrease}>decrease</Button>
-                <Button onClick={this.onReset}>reset</Button>
-            </div>
+            <Loading loading={this.state.loading} />
+            <Button onClick={this.testClick}>Button</Button>
+            {this.props.count}
+            <Button onClick={this.onIncrease}>increase</Button>
+            <Button onClick={this.onDecrease}>decrease</Button>
+            <Button onClick={this.onReset}>reset</Button>
+          </div>
         );
     }
 }

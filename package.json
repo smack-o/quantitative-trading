@@ -9,7 +9,7 @@
     "dev": "webpack-dev-server --config webpack.dev.config.js --mode development --color --progress --open --hot",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack -p --progress --colors",
-    "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}'"
+    "lint": "eslint --fix src"
   },
   "license": "MIT",
   "devDependencies": {
@@ -22,6 +22,14 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "css-loader": "^0.28.10",
+    "eslint": "^5.5.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-config-standard-react": "^7.0.2",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^7.0.1",
+    "eslint-plugin-promise": "^4.0.0",
+    "eslint-plugin-react": "^7.11.1",
+    "eslint-plugin-standard": "^4.0.0",
     "extract-text-webpack-plugin": "next",
     "file-loader": "^1.1.11",
     "html-loader": "^1.0.0-alpha.0",

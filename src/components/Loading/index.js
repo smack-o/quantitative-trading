@@ -17,9 +17,9 @@ export default class Loading extends React.Component {
     }
     render() {
         return (
-            <div>
-                {this.state.loadingText}
-            </div>
+          <div>
+            {this.state.loadingText}
+          </div>
         );
     }
 }

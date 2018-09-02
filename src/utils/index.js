@@ -1,5 +1,5 @@
-import { isMobile } from './uaParser';
+import { isMobile } from './uaParser'
 
 export {
-    isMobile
-};
+  isMobile
+}

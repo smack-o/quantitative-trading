@@ -33,9 +33,9 @@ export default class Button extends React.Component {
             type
         };
         return (
-            <div className="button">
-                <button {...props}>{children}</button>
-            </div>
+          <div className='button'>
+            <button {...props}>{children}</button>
+          </div>
         );
     }
 }
