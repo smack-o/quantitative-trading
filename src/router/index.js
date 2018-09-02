@@ -3,10 +3,12 @@ import { Route, Switch } from 'react-router-dom'
 // import { isMobile } from 'utils'
 
 import Test from '@/containers/Test'
+import Login from '@/containers/Login'
 
 const router = () => (
   <Switch>
-    <Route path='/' component={Test} />
+    <Route exact path='/' component={Test} />
+    <Route path='/login' component={Login} />
   </Switch>
 )
 

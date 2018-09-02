@@ -5,15 +5,11 @@ import Router from '@/router'
 import { isMobile } from '@/utils/uaParser'
 import 'assets/global.less'
 
-const { Header, Footer } = Components
-
 export default class App extends React.Component {
   render () {
     return (
       <div>
-        <Header />
         <Router />
-        <Footer />
       </div>
     )
   }

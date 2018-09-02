@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "webpack-dev-server --config webpack.dev.config.js --mode development --color --progress --open --hot",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack -p --progress --colors",
+    "build": "webpack --mode production --progress --colors",
     "lint": "eslint --fix src"
   },
   "license": "MIT",
@@ -21,6 +21,7 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
+    "clean-webpack-plugin": "^0.1.19",
     "css-loader": "^0.28.10",
     "eslint": "^5.5.0",
     "eslint-config-standard": "^12.0.0",
@@ -36,6 +37,7 @@
     "html-webpack-plugin": "^3.0.4",
     "less": "^3.0.1",
     "less-loader": "^4.1.0",
+    "raw-loader": "^0.5.1",
     "react-hot-loader": "^4.0.0",
     "redux-devtools-extension": "^2.13.2",
     "style-loader": "^0.20.2",
@@ -47,6 +49,8 @@
     "webpack-merge": "^4.1.2"
   },
   "dependencies": {
+    "@material-ui/core": "^3.0.1",
+    "async-validator": "^1.8.5",
     "axios": "^0.18.0",
     "classnames": "^2.2.5",
     "path-to-regexp": "^2.2.0",

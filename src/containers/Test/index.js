@@ -5,7 +5,8 @@ import { increment, decrement, reset } from '@/redux/actions/counter';
 import './style.less';
 import Common from './common.js';
 
-const { Loading, Button } = Components;
+const { Loading } = Components;
+import Button from '@material-ui/core/Button';
 
 @connect(
     state => ({
@@ -28,13 +29,14 @@ export default class Test extends Common {
     render() {
         return (
           <div className='normal'>
-                tests111
-            <Loading loading={this.state.loading} />
-            <Button onClick={this.testClick}>Button</Button>
+            {/* tests111 */}
+            Hello World
+            {/* <Loading loading={this.state.loading} />
+            <Button variant='raised' color='primary' onClick={this.testClick}>Button</Button>
             {this.props.count}
-            <Button onClick={this.onIncrease}>increase</Button>
-            <Button onClick={this.onDecrease}>decrease</Button>
-            <Button onClick={this.onReset}>reset</Button>
+            <Button variant='raised' color='primary' onClick={this.onIncrease}>increase</Button>
+            <Button variant='raised' color='primary' onClick={this.onDecrease}>decrease</Button>
+            <Button variant='raised' color='primary' onClick={this.onReset}>reset</Button> */}
           </div>
         );
     }
