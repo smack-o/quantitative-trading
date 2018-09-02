@@ -34,14 +34,14 @@ const commonConfig = {
                     {
                         loader: 'css-loader'
                     },
-                    {
-                        loader: 'smart-px2rem-loader',
-                        options: {
-                            remUnit: 18.75,
-                            remPrecision: 5,
-                            excludes: ['border', 'border-top', 'border-right', 'border-bottom', 'border-left', 'border-width', 'border-top-width', 'border-right-width', 'border-bottom-width', 'border-left-width'],
-                        }
-                    },
+                    // {
+                    //     loader: 'smart-px2rem-loader',
+                    //     options: {
+                    //         remUnit: 18.75,
+                    //         remPrecision: 5,
+                    //         excludes: ['border', 'border-top', 'border-right', 'border-bottom', 'border-left', 'border-width', 'border-top-width', 'border-right-width', 'border-bottom-width', 'border-left-width'],
+                    //     }
+                    // },
                     {
                         loader: 'less-loader',
                         options: {
