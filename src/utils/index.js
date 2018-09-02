@@ -5,4 +5,4 @@ const reactChildren = children => (Array.isArray(children) ? children : [childre
 export {
   isMobile,
   reactChildren
-}
+};
