@@ -1,8 +1,3 @@
-/**
- * @file uaParser.js
- * @author
- */
-
 import Parser from 'ua-parser-js'
 
 const parser = new Parser()
