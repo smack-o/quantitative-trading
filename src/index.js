@@ -6,7 +6,7 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import { isMobile } from 'utils'
 import configureStore from '@/redux/store'
 import App from '@/containers/App'
-
+import { getUserInfo } from 'actions/user';
 // prepare store
 const store = configureStore()
 
@@ -19,7 +19,11 @@ if (module.hot) {
   })
 }
 
-function renderWithHotReload (RootElement) {
+async function renderWithHotReload (RootElement) {
+  // 获取用户信息放在 App 之前
+  await store.dispatch(getUserInfo()).then(() => {
+    console.log(2222);
+  });
   ReactDOM.render(
     <AppContainer>
       <Provider store={store}>
