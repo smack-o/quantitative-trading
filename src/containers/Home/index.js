@@ -1,14 +1,14 @@
 import React from 'react';
-import Components from '@/components';
 import { connect } from 'react-redux';
-import { increment, decrement, reset } from '@/redux/actions/counter';
 import './style.less';
-import Common from './common.js';
-
-const { Loading } = Components;
-import { Button, Input, TextField, AppBar, Tabs, Tab } from '@material-ui/core';
+import { Route, Switch, Redirect } from 'react-router-dom'
+import StrategyList from './_components/StrategyList'
+import StrategySetting from './_components/StrategySetting'
+import StrategyHelp from './_components/StrategyHelp'
+// import { Button, Input, TextField, AppBar, Tabs, Tab } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
 import { signout } from 'actions/user';
+import { udpateHeaderTabs } from 'actions/header'
 
 @withRouter
 @connect(
@@ -17,24 +17,36 @@ import { signout } from 'actions/user';
   }),
   dispatch => ({
     signout: data => dispatch(signout(data)),
+    udpateHeaderTabs: data => dispatch(udpateHeaderTabs(data)),
   })
 )
 
-export default class Home extends React.Component {
+class Home extends React.Component {
     constructor(props) {
-        super(props);
-        this.state = {
-            loading: false
-        };
+      super(props);
     }
-    onLogout = () => {
-      this.props.signout();
+    tabs = [{
+      pathname: '/stgs',
+      label: '我的策略'
+    }, {
+      pathname: '/stgs/setting',
+      label: '个人设置'
+    }, {
+      pathname: '/stgs/help',
+      label: '帮助'
+    }]
+    componentDidMount() {
+      this.props.udpateHeaderTabs(this.tabs)
     }
     render() {
         return (
-          <div className='home-wrapper'>
-            
-          </div>
+          <Switch>
+            <Route path='/stgs' component={StrategyList} />
+            <Route path='/stgs/setting' component={StrategySetting} />
+            <Route path='/stgs/help' component={StrategyHelp} />
+          </Switch>
         );
     }
 }
+
+export default Home

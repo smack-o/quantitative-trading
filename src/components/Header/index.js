@@ -10,7 +10,8 @@ import { connect } from 'react-redux';
 @withRouter
 @connect(
   state => ({
-    userInfo: state.user.userInfo
+    userInfo: state.user.userInfo,
+    tabs: state.header.tabs
   }),
   dispatch => ({
     signout: data => dispatch(signout(data)),
@@ -44,8 +45,28 @@ export default class Header extends React.Component {
       </AppBar>
     )
   }
-  onTabChange = (e, value) => {
-    this.props.history.push(this.tabMap[value]);
+  getTabs = (pathname) => {
+    const { tabs } = this.props;
+    let domList = [];
+    const tabMap = tabs.map((item, index) => {
+      domList.push(<Tab key={index} label={item.label} />)
+      return item.pathname;
+    });
+    console.log(tabMap)
+    return (
+      <AppBar className='header'>
+        <Tabs value={tabMap.indexOf(pathname)} onChange={this.onTabChange.bind(this, tabMap)}>
+          { domList }
+        </Tabs>
+        <div className='user-info'>
+          <Button onClick={this.onLogout} variant='contained' color='primary' className='user-logout'>登出</Button>
+        </div>
+      </AppBar>
+    )
+  }
+  onTabChange = (tabMap, e, value) => {
+    const tabM = tabMap || this.tabMap;
+    this.props.history.push(tabM[value]);
   }
   onLogout = async () => {
     await this.props.signout();
@@ -56,6 +77,9 @@ export default class Header extends React.Component {
     if (this.tabMap.indexOf(pathname) >= 0) {
       // login page
       return this.getLoginPageHeader(pathname);
+    }
+    if (this.props.tabs.length > 0) {
+      return this.getTabs(pathname);
     }
     const { tab } = this.state;
     return (
