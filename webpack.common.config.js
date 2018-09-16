@@ -103,11 +103,12 @@ const commonConfig = {
             'utils': path.resolve(__dirname, 'src/utils'),
             'assets': path.resolve(__dirname, 'src/assets'),
             'containers': path.resolve(__dirname, 'src/containers'),
-            // actions: path.join(__dirname, 'client/redux/actions'),
-            // pages: path.join(__dirname, 'client/pages'),
-            // components: path.join(__dirname, 'client/components'),
-            // router: path.join(__dirname, 'client/router'),
-            // reducers: path.join(__dirname, 'client/redux/reducers'),
+            'services': path.resolve(__dirname, 'src/services'),
+            // actions: path.join(__dirname, 'src/redux/actions'),
+            // pages: path.join(__dirname, 'src/pages'),
+            // components: path.join(__dirname, 'src/components'),
+            // router: path.join(__dirname, 'src/router'),
+            'actions': path.join(__dirname, 'src/redux/actions'),
             // mock: path.join(__dirname, 'mock')
         }
     },
