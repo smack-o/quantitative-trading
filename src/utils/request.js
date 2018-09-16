@@ -1,13 +1,13 @@
 import axios from 'axios'
 // import { baseURL } from './config'
 import pathToRegexp from 'path-to-regexp'
-
+import { loginRouters } from './'
 const fetch = options => {
   const {
     method = 'get',
     data,
     baseURL = '/api',
-    timeout = 5000
+    timeout = 25000
   } = options
   let { url } = options
   axios.defaults.baseURL = baseURL
@@ -67,12 +67,28 @@ export default function request (options) {
     const { statusText, status } = response
     const isSuccess = status === 200
     const msg = statusText
-    return {
-      success: isSuccess,
-      message: msg,
-      status,
-      data: response.data
+    if (response.data.code === '400002') {
+      // 400002 未登录状态， 统一跳转登录页
+      if (loginRouters.indexOf(location.pathname) < 0) {
+        window.location.href = '/signup';
+        return;
+      }
+      return {
+        success: isSuccess,
+        message: msg,
+        status,
+        data: response.data
+      }
     }
+    if (response.data.code === 200 || response.data.status === 'ok') {
+      return {
+        success: isSuccess,
+        message: msg,
+        status,
+        data: response.data
+      }
+    }
+    return Promise.reject({ response })
   }).catch(error => {
     const { response } = error
     let msg
@@ -87,6 +103,7 @@ export default function request (options) {
       status = 600
       msg = 'Network Error'
     }
-    return { success: false, status, message: msg, ...otherData }
+    alert(msg);
+    return Promise.reject({ success: false, status, message: msg, ...otherData })
   })
 }
