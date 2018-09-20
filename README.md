@@ -28,4 +28,3 @@ yarn run test:unit
 ### Run your end-to-end tests
 ```
 yarn run test:e2e
-```

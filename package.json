@@ -1,5 +1,7 @@
 {
   "name": "quantitative-trading",
+  "description": "quantitative-trading",
+  "author": "smackgg <smackgg@gmail.com>",
   "version": "0.1.0",
   "private": true,
   "scripts": {
