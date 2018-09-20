@@ -4,15 +4,16 @@ import './style.less';
 import { Button, Input, TextField, AppBar, Tabs, Tab } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
 import { signout } from 'actions/user';
-import { getStgs } from 'actions/strategy';
+import { getStgs, createStgs } from 'actions/strategy';
 
 @withRouter
 @connect(
   state => ({
-    userInfo: state.user.userInfo
+    stgs: state.strategy.stgs
   }),
   dispatch => ({
     getStgs: data => dispatch(getStgs(data)),
+    createStgs: data => dispatch(createStgs(data)),
   })
 )
 
@@ -26,12 +27,19 @@ class StrategyList extends React.Component {
     componentDidMount() {
       this.props.getStgs()
     }
+    createStg = () => {
+      this.props.createStgs()
+    }
     render() {
-        return (
-          <div className='home-wrapper'>
-            222
-          </div>
-        );
+      let stgs = null;
+      if (this.props.stgs.length === 0) {
+        stgs = <div>暂无策略</div>
+      }
+      return (<div>
+        <div className='bottom-bar'>
+          <Button onClick={this.createStg} variant='contained' color='primary' className='user-logout'>新建策略</Button>
+        </div>
+      </div>)
     }
 }
 
