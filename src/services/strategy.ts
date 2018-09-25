@@ -14,3 +14,9 @@ export const updateStgs = (data: any) => request({
     method: 'post',
     data,
 });
+
+export const deleteStgs = (data: { stgid: string }) => request({
+    url: 'stgs/delete',
+    method: 'post',
+    data,
+});
