@@ -1,15 +1,12 @@
 <style scoped lang="less">
-  .login-wrapper {
+  .stgs-wrapper {
+    width: 100%;
     height: 100%;
+  }
+  .stgs-content {
+    height: calc(100% - 61px);
     width: 100%;
     position: relative;
-  }
-  .login-form {
-    width: 400px;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
   }
 </style>
 <template>
@@ -25,7 +22,9 @@
       <el-menu-item index="1"><router-link to="/stgs/setting">个人设置</router-link> </el-menu-item>
       <el-menu-item index="2"><router-link to="/stgs/help">帮助</router-link> </el-menu-item>
     </el-menu>
-    <router-view />
+    <div class="stgs-content">
+      <router-view />
+    </div>
   </div>
 </template>
 
@@ -55,7 +54,6 @@ export default class Stgs extends Vue {
       }
       callback();
     }
-    console.log(routerMap.indexOf(this.$route.name))
 
     return {
       type: 'signin',
@@ -77,7 +75,6 @@ export default class Stgs extends Vue {
   }
 
   submit() {
-    console.log(this.form)
     this.$refs.form.validate((valid) => {
       if (valid) {
         const { username, password } = this.form;
@@ -120,6 +117,7 @@ export default class Stgs extends Vue {
 
   @Watch('$route')
   onRouterChanged(location: object) {
+    console.log(location.name)
     this.activeIndex = routerMap.indexOf(location.name).toString();
   }
 
