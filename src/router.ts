@@ -26,7 +26,7 @@ const router = new Router({
         component: ensure('Stgs/list'),
       }, {
         path: 'help',
-        name: 'help',
+        name: 'stgsHelp',
         component: ensure('Stgs/help'),
       }, {
         path: 'setting',
