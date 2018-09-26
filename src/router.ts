@@ -13,12 +13,11 @@ const router = new Router({
     {
       path: '/',
       name: 'home',
-      redirect: { name: 'stgs' },
+      redirect: { name: 'stgsList' },
       component: Home,
     },
     {
       path: '/stgs',
-      name: 'stgs',
       component: ensure('Stgs/index'),
       children: [{
         path: '/',
