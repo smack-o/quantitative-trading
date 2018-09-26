@@ -2,6 +2,22 @@
 @import "./reset.less";
 @import "./lib.less";
 
+* {
+    box-sizing: border-box;
+}
+
 input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0 30px white inset;
+}
+
+body {
+  min-height: 600px;
+  min-width: 990px;
+  height: 100vh;
+  width: 100vw;
+}
+
+#app {
+  height: 100%;
+  width: 100%;
 }

@@ -1,17 +1,30 @@
-## Setup
+# quantitative-trading
 
+## Project setup
 ```
-$ npm install
-```
-
-## Running
-
-```
-$ npm dev
+yarn install
 ```
 
-## Build
+### Compiles and hot-reloads for development
+```
+yarn run serve
+```
 
+### Compiles and minifies for production
 ```
-$ npm run build
+yarn run build
 ```
+
+### Lints and fixes files
+```
+yarn run lint
+```
+
+### Run your unit tests
+```
+yarn run test:unit
+```
+
+### Run your end-to-end tests
+```
+yarn run test:e2e
