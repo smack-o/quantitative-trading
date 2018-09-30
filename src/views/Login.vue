@@ -41,7 +41,7 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator';
-import { Getter, Action } from 'vuex-class'
+import { Getter, Action } from 'vuex-class';
 const loginRouterMap = ['signin', 'signup', 'reset'];
 @Component({
 })

@@ -28,7 +28,9 @@ const getters = {
 // actions
 const actions = {
   getUserInfo(context: { commit: Commit; state: State }) {
+    context.commit(types.GLOBAL_LOADING);
     return getUserInfo().then((result: RequestResult) => {
+      context.commit(types.GLOBAL_LOADED);
       if (result.success) {
           context.commit(types.GET_USERINFO_SUCCESS, result.data);
           return true;
