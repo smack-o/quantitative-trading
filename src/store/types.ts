@@ -1,5 +1,7 @@
 // global
 export const FAIL = 'FAIL';
+export const GLOBAL_LOADING = 'GLOBAL_LOADING';
+export const GLOBAL_LOADED = 'GLOBAL_LOADED';
 
 // user
 export const GET_USERINFO_SUCCESS = 'uesr/GET_USERINFO_SUCCESS';
