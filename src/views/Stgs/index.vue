@@ -17,10 +17,11 @@
       mode="horizontal"
       background-color="#545c64"
       text-color="#fff"
+      @select="handleSelect"
       active-text-color="#ffd04b">
-      <el-menu-item index="0"><router-link to="/stgs">我的策略</router-link> </el-menu-item>
-      <el-menu-item index="1"><router-link to="/stgs/setting">个人设置</router-link> </el-menu-item>
-      <el-menu-item index="2"><router-link to="/stgs/help">帮助</router-link> </el-menu-item>
+      <el-menu-item index="0">我的策略</el-menu-item>
+      <el-menu-item index="1">个人设置</el-menu-item>
+      <el-menu-item index="2">帮助</el-menu-item>
     </el-menu>
     <div class="stgs-content">
       <router-view />
@@ -54,7 +55,7 @@ export default class Stgs extends Vue {
       }
       callback();
     }
-
+    console.log('this.$route.name', this.$route.name)
     return {
       type: 'signin',
       defaultActive: '1',
@@ -112,6 +113,13 @@ export default class Stgs extends Vue {
         // console.log('error submit!!');
         return false;
       }
+    });
+  }
+
+  handleSelect(key, keyPath) {
+    this.activeIndex = key;
+    this.$router.push({
+      name: routerMap[key]
     });
   }
 

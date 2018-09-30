@@ -58,8 +58,9 @@
 </style>
 <template>
   <div class="stgs">
+    <div v-if="loading" class="global-loading"></div>
     <div class="no-stgs" v-if="stgs.length === 0">暂无策略，请新建策略</div>
-    <div v-if="stgs.length > 0" class="stgs-list">
+    <div v-else class="stgs-list">
       <el-card v-for="stg in stgs" :body-style="{ padding: '0px' }" class="stg-card">
         <p>从 {{stg.start_dtime}} 到 {{stg.end_dtime}}</p>
         <p><span class="stg-line-left">区间内基础涨幅</span> {{stg.base_increase}}</p>
@@ -73,7 +74,7 @@
           <el-button type="text" class="button">查看详情</el-button>
         </div>
         <div class="stg-options">
-          <el-button class="button" type="primary" @click="onCreateStgs">部署挂机</el-button>
+          <el-button class="button" type="primary" @click="onSimulationStgs(stg.stgid)">部署挂机</el-button>
           <el-button class="button" type="primary" @click="onCreateStgs">复制策略</el-button>
           <el-button class="button" type="primary" @click="showDeleteDialog(stg.stgid)">删除策略</el-button>
         </div>
@@ -101,24 +102,31 @@ import { Component, Vue, Watch } from 'vue-property-decorator';
 import { Getter, Action } from 'vuex-class'
 const loginRouterMap = ['signin', 'signup', 'reset'];
 // const
-@Component()
+@Component({})
 export default class Stgs extends Vue {
-  @Action('getStgs') public getStgs!: any
-  @Action('createStgs') public createStgs!: any
-  @Action('signup') public signup!: any
-  @Action('deleteStgs') public deleteStgs!: any
+  @Action('getStgs') public getStgs!: any;
+  @Action('createStgs') public createStgs!: any;
+  @Action('signup') public signup!: any;
+  @Action('deleteStgs') public deleteStgs!: any;
+  @Action('simulationStgs') public simulationStgs!: any;
 
-  @Getter('stgs') public stgs: []
+  @Getter('stgs') public stgs: [];
   data() {
 
     return {
       dialogVisible: false,
       stgid: '',
+      loading: true,
     }
   }
 
   async onCreateStgs() {
     await this.createStgs();
+    this.getStgs();
+  }
+
+  async onSimulationStgs(stgid) {
+    await this.simulationStgs({ stgid });
     this.getStgs();
   }
 
@@ -150,7 +158,9 @@ export default class Stgs extends Vue {
 
   async created() {
     // loading
+    this.loading = true;
     await this.getStgs();
+    this.loading = false;
     // loaded
   }
 }

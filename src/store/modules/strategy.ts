@@ -5,6 +5,7 @@ import {
   createStgs,
   updateStgs,
   deleteStgs,
+  simulationStgs,
 } from '@/services/strategy';
 
 import { RequestResult } from '@/utils/request';
@@ -45,6 +46,15 @@ const actions = {
   },
   deleteStgs(context: { commit: Commit; state: State }, data: { stgid: string }) {
     return deleteStgs(data).then((result: RequestResult) => {
+      if (result.success) {
+        // context.commit(types.CREATE_STGS_SUCCESS, result.data);
+        return true;
+      }
+      context.commit('FAIL', result.message);
+    });
+  },
+  simulationStgs(context: { commit: Commit; state: State }, data: { stgid: string }) {
+    return simulationStgs(data).then((result: RequestResult) => {
       if (result.success) {
         // context.commit(types.CREATE_STGS_SUCCESS, result.data);
         return true;
