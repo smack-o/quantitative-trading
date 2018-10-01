@@ -34,6 +34,19 @@ const router = new Router({
       }],
     },
     {
+      path: '/stg/:id',
+      component: ensure('StgDetail/index'),
+      children: [{
+        path: '/',
+        name: 'stgDetail',
+        component: ensure('StgDetail/detail'),
+      }, {
+        path: 'help',
+        name: 'stgHelp',
+        component: ensure('StgDetail/help'),
+      }],
+    },
+    {
       path: '/user',
       redirect: { name: 'signin' },
       children: [{

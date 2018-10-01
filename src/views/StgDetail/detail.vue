@@ -71,7 +71,7 @@
         <p><span class="stg-line-left">胜率</span>  {{stg.win_rate}}</p>
         <p><span class="stg-line-left">状态</span>  {{stgStatus[stg.status]}}</p>
         <div class="bottom clearfix">
-          <el-button @click="goToDetail(stg.stgid)" type="text" class="button">查看详情</el-button>
+          <el-button type="text" class="button">查看详情</el-button>
         </div>
         <div class="stg-options">
           <el-button class="button" type="primary" @click="onSimulationStgs(stg.stgid)">部署挂机</el-button>
@@ -129,10 +129,6 @@ export default class Stgs extends Vue {
   async onSimulationStgs(stgid: string) {
     await this.simulationStgs({ stgid });
     this.getStgs();
-  }
-
-  goToDetail(stgid: string) {
-    this.$router.push(`/stg/${stgid}`);
   }
 
   // 删除二次确认弹窗
