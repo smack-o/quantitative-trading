@@ -8,6 +8,8 @@ export interface State {
 
 const initState: State = {
   loading: false,
+  // loadingList: [
+  // ],
 };
 
 // actions
@@ -21,6 +23,9 @@ const mutations = {
   },
   [types.GLOBAL_LOADING](state: State) {
     state.loading = true;
+    // if (loadingList) {
+
+    // }
   },
   [types.GLOBAL_LOADED](state: State) {
     state.loading = false;
@@ -29,7 +34,7 @@ const mutations = {
 
 const getters = {
   loading: (state: State) => state.loading,
-}
+};
 
 export default {
   state: initState,

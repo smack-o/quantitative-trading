@@ -21,7 +21,7 @@
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator';
 
-@Component()
+@Component
 export default class Stgs extends Vue {
 }
 </script>

@@ -61,7 +61,7 @@
     <div v-if="loading" class="global-loading"></div>
     <div class="no-stgs" v-if="stgs.length === 0">暂无策略，请新建策略</div>
     <div v-else class="stgs-list">
-      <el-card v-for="stg in stgs" :body-style="{ padding: '0px' }" class="stg-card">
+      <el-card v-for="(stg, index) in stgs" :key="index" :body-style="{ padding: '0px' }" class="stg-card">
         <p>从 {{stg.start_dtime}} 到 {{stg.end_dtime}}</p>
         <p><span class="stg-line-left">区间内基础涨幅</span> {{stg.base_increase}}</p>
         <p><span class="stg-line-left">策略盈利幅度</span>  {{stg.profit}}</p>
@@ -99,39 +99,40 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator';
-import { Getter, Action } from 'vuex-class'
+import { Getter, Action } from 'vuex-class';
 const loginRouterMap = ['signin', 'signup', 'reset'];
 // const
 @Component({})
 export default class Stgs extends Vue {
-  @Action('getStgs') public getStgs!: any;
-  @Action('createStgs') public createStgs!: any;
-  @Action('signup') public signup!: any;
-  @Action('deleteStgs') public deleteStgs!: any;
-  @Action('simulationStgs') public simulationStgs!: any;
+  @Action('getStgs') getStgs!: any;
+  @Action('createStgs') createStgs!: any;
+  @Action('signup') signup!: any;
+  @Action('deleteStgs') deleteStgs!: any;
+  @Action('simulationStgs') simulationStgs!: any;
 
-  @Getter('stgs') public stgs: [];
-  data() {
+  @Getter('stgs') stgs!: [];
 
-    return {
-      dialogVisible: false,
-      stgid: '',
-      loading: true,
-    }
-  }
+  private dialogVisible: boolean = false;
+  private stgid: string = '';
+  private loading: boolean = true;
+  private stgStatus = {
+    test: '测试',
+    active: '挂机中',
+    stop: '未挂机',
+  };
 
   async onCreateStgs() {
     await this.createStgs();
     this.getStgs();
   }
 
-  async onSimulationStgs(stgid) {
+  async onSimulationStgs(stgid: string) {
     await this.simulationStgs({ stgid });
     this.getStgs();
   }
 
   // 删除二次确认弹窗
-  showDeleteDialog(stgid) {
+  showDeleteDialog(stgid: string) {
     console.log(stgid);
     this.dialogVisible = true;
     this.stgid = stgid;
@@ -140,20 +141,9 @@ export default class Stgs extends Vue {
   async onDeleteStgs() {
     this.dialogVisible = false;
     await this.deleteStgs({
-      stgid: this.stgid
-    })
+      stgid: this.stgid,
+    });
     this.getStgs();
-  }
-
-  @Watch('$route')
-  onRouterChanged(location: object) {
-    this.activeIndex = loginRouterMap.indexOf(location.name).toString();
-  }
-
-  stgStatus = {
-    test: '测试',
-    active: '挂机中',
-    stop: '未挂机',
   }
 
   async created() {

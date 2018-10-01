@@ -19,11 +19,12 @@ Vue.config.productionTip = false;
 
 
 const initApp = async () => {
-  window.$vm = new Vue({
+  new Vue({
     router,
     store,
     render: (h) => h(App),
   }).$mount('#app');
+
   store.dispatch('getUserInfo');
 };
 
