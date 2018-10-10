@@ -59,41 +59,6 @@
 <template>
   <div class="stgs">
     <div v-if="loading" class="global-loading"></div>
-    <div class="no-stgs" v-if="stgs.length === 0">暂无策略，请新建策略</div>
-    <div v-else class="stgs-list">
-      <el-card v-for="(stg, index) in stgs" :key="index" :body-style="{ padding: '0px' }" class="stg-card">
-        <p>从 {{stg.start_dtime}} 到 {{stg.end_dtime}}</p>
-        <p><span class="stg-line-left">区间内基础涨幅</span> {{stg.base_increase}}</p>
-        <p><span class="stg-line-left">策略盈利幅度</span>  {{stg.profit}}</p>
-        <p><span class="stg-line-left">最大回撤</span>  {{stg.drawdown}}</p>
-        <p><span class="stg-line-left">买入次数</span>  {{stg.buy_time}}</p>
-        <p><span class="stg-line-left">卖出次数</span>  {{stg.sell_time}}</p>
-        <p><span class="stg-line-left">胜率</span>  {{stg.win_rate}}</p>
-        <p><span class="stg-line-left">状态</span>  {{stgStatus[stg.status]}}</p>
-        <div class="bottom clearfix">
-          <el-button type="text" class="button">查看详情</el-button>
-        </div>
-        <div class="stg-options">
-          <el-button class="button" type="primary" @click="onSimulationStgs(stg.stgid)">部署挂机</el-button>
-          <el-button class="button" type="primary" @click="onCreateStgs">复制策略</el-button>
-          <el-button class="button" type="primary" @click="showDeleteDialog(stg.stgid)">删除策略</el-button>
-        </div>
-      </el-card>
-    </div>
-    <div class="button-wrapper">
-      <el-button type="primary" @click="onCreateStgs">新建策略</el-button>
-    </div>
-    <el-dialog
-      title="提示"
-      :visible.sync="dialogVisible"
-      width="30%"
-    >
-      <span>您确定要删除此策略？</span>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="onDeleteStgs">确 定</el-button>
-      </span>
-    </el-dialog>
   </div>
 </template>
 
@@ -104,13 +69,9 @@ const loginRouterMap = ['signin', 'signup', 'reset'];
 // const
 @Component({})
 export default class Stgs extends Vue {
-  @Action('getStgs') getStgs!: any;
-  @Action('createStgs') createStgs!: any;
-  @Action('signup') signup!: any;
-  @Action('deleteStgs') deleteStgs!: any;
-  @Action('simulationStgs') simulationStgs!: any;
+  @Action('getStgReports') getStgReports!: any;
 
-  @Getter('stgs') stgs!: [];
+  // @Getter('reports') stgs!: [];
 
   private dialogVisible: boolean = false;
   private stgid: string = '';
@@ -121,15 +82,15 @@ export default class Stgs extends Vue {
     stop: '未挂机',
   };
 
-  async onCreateStgs() {
-    await this.createStgs();
-    this.getStgs();
-  }
+  // async onCreateStgs() {
+  //   await this.createStgs();
+  //   this.getStgs();
+  // }
 
-  async onSimulationStgs(stgid: string) {
-    await this.simulationStgs({ stgid });
-    this.getStgs();
-  }
+  // async onSimulationStgs(stgid: string) {
+  //   await this.simulationStgs({ stgid });
+  //   this.getStgs();
+  // }
 
   // 删除二次确认弹窗
   showDeleteDialog(stgid: string) {
@@ -137,19 +98,23 @@ export default class Stgs extends Vue {
     this.dialogVisible = true;
     this.stgid = stgid;
   }
-  // 删除
-  async onDeleteStgs() {
-    this.dialogVisible = false;
-    await this.deleteStgs({
-      stgid: this.stgid,
-    });
-    this.getStgs();
-  }
+  // // 删除
+  // async onDeleteStgs() {
+  //   this.dialogVisible = false;
+  //   await this.deleteStgs({
+  //     stgid: this.stgid,
+  //   });
+  //   this.getStgs();
+  // }
 
   async created() {
+    console.log(this.$route.params);
+    const { reportid } = this.$route.params;
     // loading
     this.loading = true;
-    await this.getStgs();
+    await this.getStgReports({
+      reportid,
+    });
     this.loading = false;
     // loaded
   }

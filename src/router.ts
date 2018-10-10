@@ -34,7 +34,7 @@ const router = new Router({
       }],
     },
     {
-      path: '/stg/:id',
+      path: '/stg/stgid/:stgid/reportid/:reportid',
       component: ensure('StgDetail/index'),
       children: [{
         path: '/',
