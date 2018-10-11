@@ -1,7 +1,7 @@
-import axios from 'axios';
-// import { baseURL } from './config'
+import axios, { AxiosResponse } from 'axios';
 import pathToRegexp from 'path-to-regexp';
-import { loginRouters } from './';
+import store from '../store';
+import * as types from '../store/types';
 
 interface FetchOption {
   method?: string;
@@ -11,12 +11,12 @@ interface FetchOption {
   url?: string;
 }
 
-export interface RequestResult {
-  success: boolean;
-  message: string;
-  status: number;
-  data: any;
-}
+// export interface RequestResult {
+//   success: boolean;
+//   message: string;
+//   status: number;
+//   data: any;
+// }
 
 const fetch = (options: FetchOption) => {
   const {
@@ -25,7 +25,7 @@ const fetch = (options: FetchOption) => {
     baseURL = '/api',
     timeout = 25000,
   } = options;
-  let { url = '' } = options;
+  let url: any = options.url;
   axios.defaults.baseURL = baseURL;
 
   const cloneData = {
@@ -42,14 +42,14 @@ const fetch = (options: FetchOption) => {
 
     const match = pathToRegexp.parse(url);
     url = pathToRegexp.compile(url)(data);
-    for (const item of match) {
-      if (item instanceof Object && item.name in cloneData) {
-        delete cloneData[item.name];
-      }
-    }
+    // for (const item of match) {
+    //   if (item instanceof Object && item.name in cloneData) {
+    //     delete cloneData[item.name];
+    //   }
+    // }
     url = domin + url;
   } catch (e) {
-    // console.error(e.message);
+    console.error(e.message);
   }
 
   const requestOptions = {
@@ -78,8 +78,9 @@ const fetch = (options: FetchOption) => {
   }
 };
 
-export default function request(options: object) {
-  return fetch(options).then((response: { statusText: string, status: number, data: any }) => {
+export default function request(options: any) {
+  store.commit(types.GLOBAL_LOADING);
+  return fetch(options).then((response) => {
     const { statusText, status } = response;
     const isSuccess = status === 200;
     const msg = statusText;
@@ -104,7 +105,7 @@ export default function request(options: object) {
         data: response.data,
       };
     }
-    return Promise.reject({ response });
+    throw response;
   }).catch((error: any) => {
     const { response } = error;
     let msg;
@@ -121,5 +122,7 @@ export default function request(options: object) {
     }
     alert(msg);
     return Promise.reject({ success: false, status, message: msg, ...otherData });
+  }).finally(() => {
+    store.commit(types.GLOBAL_LOADED);
   });
 }

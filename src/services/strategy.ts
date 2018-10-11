@@ -20,3 +20,14 @@ export const deleteStgs = (data: { stgid: string }) => request({
     method: 'post',
     data,
 });
+
+export const getStgReports = (data: { reportid: string }) => request({
+  url: 'reports',
+  data,
+});
+
+export const simulationStgs = (data: { stgid: string }) => request({
+    url: '/stgs/simulation',
+    method: 'post',
+    data,
+});

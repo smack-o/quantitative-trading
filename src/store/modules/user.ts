@@ -7,8 +7,6 @@ import {
   signout,
 } from '@/services/user';
 
-import { RequestResult } from '@/utils/request';
-
 export interface State {
   isLogin: boolean;
   userInfo: object;
@@ -28,7 +26,7 @@ const getters = {
 // actions
 const actions = {
   getUserInfo(context: { commit: Commit; state: State }) {
-    return getUserInfo().then((result: RequestResult) => {
+    return getUserInfo().then((result: any) => {
       if (result.success) {
           context.commit(types.GET_USERINFO_SUCCESS, result.data);
           return true;
@@ -37,7 +35,7 @@ const actions = {
     });
   },
   signin(context: { commit: Commit; state: State }, data: any) {
-    return signin({ ...data }).then((result: RequestResult) => {
+    return signin({ ...data }).then((result: any) => {
       if (result.success) {
           context.commit(types.SIGNIN_SUCCESS, result.data);
           return true;

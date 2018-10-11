@@ -8,6 +8,15 @@
     width: 100%;
     position: relative;
   }
+  .el-menu-demo {
+    padding-left: 100px;
+  }
+  .save-goback {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 </style>
 <template>
   <div class="stgs-wrapper">
@@ -19,9 +28,9 @@
       text-color="#fff"
       @select="handleSelect"
       active-text-color="#ffd04b">
-      <el-menu-item index="0">我的策略</el-menu-item>
-      <el-menu-item index="1">个人设置</el-menu-item>
-      <el-menu-item index="2">帮助</el-menu-item>
+      <el-button class="save-goback" type="text">保存并退出</el-button>
+      <el-menu-item index="0">策略详情</el-menu-item>
+      <el-menu-item index="1">帮助</el-menu-item>
     </el-menu>
     <div class="stgs-content">
       <router-view />
@@ -32,7 +41,7 @@
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { Getter, Action } from 'vuex-class';
-const routerMap = ['stgsList', 'stgsSetting', 'stgsHelp'];
+const routerMap = ['stgDetail', 'stgHelp'];
 @Component
 export default class Stgs extends Vue {
   private activeIndex: string = '-1';
@@ -51,6 +60,7 @@ export default class Stgs extends Vue {
 
   created() {
     const name: any = this.$route.name;
+    console.log(name);
     this.activeIndex = routerMap.indexOf(name).toString();
   }
 }

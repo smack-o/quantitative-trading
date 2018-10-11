@@ -14,7 +14,7 @@
 </style>
 <template>
   <div class="stgs-help">
-    help
+    策略详情帮助
   </div>
 </template>
 

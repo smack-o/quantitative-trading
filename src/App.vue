@@ -1,8 +1,28 @@
 <template>
   <div id="app">
     <router-view />
+    <vue-progress-bar></vue-progress-bar>
   </div>
 </template>
+
+<script lang="ts">
+import { Component, Vue, Watch } from 'vue-property-decorator';
+import { Getter, Action } from 'vuex-class';
+
+@Component
+export default class Stgs extends Vue {
+  @Getter('loading') loading!: boolean;
+  @Watch('loading')
+  onLoadingChanged(loading: boolean) {
+    // 加载进度条
+    this.$Progress[loading ? 'start' : 'finish']();
+  }
+  created() {
+    // 加载进度条
+    this.$Progress.start();
+  }
+}
+</script>
 
 <style lang="less">
 @import './assets/global.less';

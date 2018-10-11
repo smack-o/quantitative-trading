@@ -41,54 +41,51 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator';
-import { Getter, Action } from 'vuex-class'
+import { Getter, Action } from 'vuex-class';
 const loginRouterMap = ['signin', 'signup', 'reset'];
 @Component({
 })
 export default class Login extends Vue {
-  @Action('signin') public signin!: any
-  @Action('signup') public signup!: any
+  @Action('signin') signin!: any;
+  @Action('signup') signup!: any;
+  private form: { username: string, password: string } = {
+    username: '',
+    password: '',
+  };
 
-  data() {
-    const validateMail = (rule, value, callback) => {
-      if (!value) {
-        return callback(new Error('邮箱不能为空'));
-      }
-      if (!/^[a-zA-Z0-9_\.]+@([a-zA-Z-]+\.?)+$/.test(value)) {
-        return callback(new Error('请输入正确格式邮箱'));
-      }
-      callback();
-    }
-    const validatePassword = (rule, value, callback) => {
-      if (!value) {
-        return callback(new Error('密码不能为空'));
-      }
-      callback();
-    }
-    console.log(loginRouterMap.indexOf(this.$route.name))
+  private type: string = 'signin';
+  private activeIndex: string = '-1';
 
-    return {
-      type: 'signin',
-      defaultActive: '1',
-      activeIndex: loginRouterMap.indexOf(this.$route.name).toString(),
-      rules: {
-        username: [
-          { validator: validateMail, trigger: 'blur' }
-        ],
-        password: [
-          { validator: validatePassword, trigger: 'blur' }
-        ],
+  private rules: any = {
+    username: [
+      { validator: (rule: any, value: string, callback: (error?: Error) => void) => {
+          if (!value) {
+            return callback(new Error('邮箱不能为空'));
+          }
+          if (!/^[a-zA-Z0-9_\.]+@([a-zA-Z-]+\.?)+$/.test(value)) {
+            return callback(new Error('请输入正确格式邮箱'));
+          }
+          callback();
+        },
+        trigger: 'blur',
       },
-      form: {
-        username: '',
-        password: '',
-      }
-    }
-  }
+    ],
+    password: [
+      { validator: (rule: any, value: string, callback: (error?: Error) => void) => {
+          if (!value) {
+            return callback(new Error('密码不能为空'));
+          }
+          callback();
+        },
+        trigger: 'blur',
+      },
+    ],
+  };
 
   submit() {
-    console.log(this.form)
-    this.$refs.form.validate((valid) => {
+    console.log(this.form);
+    const el: any = this.$refs.form;
+    el.validate((valid: boolean) => {
       if (valid) {
         const { username, password } = this.form;
         switch (this.activeIndex) {
@@ -96,7 +93,7 @@ export default class Login extends Vue {
             // 登录
             this.signin({
               mail: username,
-              password
+              password,
             }).then(() => {
               window.location.href = '/';
             });
@@ -105,7 +102,7 @@ export default class Login extends Vue {
             // 注册
             this.signup({
               mail: username,
-              password
+              password,
             }).then(() => {
               window.location.href = '/';
             });
@@ -114,7 +111,7 @@ export default class Login extends Vue {
             // 重置密码
             this.signup({
               mail: username,
-              password
+              password,
             }).then(() => {
               window.location.href = '/';
             });
@@ -129,11 +126,13 @@ export default class Login extends Vue {
   }
 
   @Watch('$route')
-  onRouterChanged(location: object) {
+  onRouterChanged(location: any) {
     this.activeIndex = loginRouterMap.indexOf(location.name).toString();
   }
 
   created() {
+    const name: any = this.$route.name;
+    this.activeIndex = loginRouterMap.indexOf(name).toString();
   }
 }
 </script>

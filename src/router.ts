@@ -13,12 +13,11 @@ const router = new Router({
     {
       path: '/',
       name: 'home',
-      redirect: { name: 'stgs' },
+      redirect: { name: 'stgsList' },
       component: Home,
     },
     {
       path: '/stgs',
-      name: 'stgs',
       component: ensure('Stgs/index'),
       children: [{
         path: '/',
@@ -32,6 +31,19 @@ const router = new Router({
         path: 'setting',
         name: 'stgsSetting',
         component: ensure('Stgs/setting'),
+      }],
+    },
+    {
+      path: '/stg/stgid/:stgid/reportid/:reportid',
+      component: ensure('StgDetail/index'),
+      children: [{
+        path: '/',
+        name: 'stgDetail',
+        component: ensure('StgDetail/detail'),
+      }, {
+        path: 'help',
+        name: 'stgHelp',
+        component: ensure('StgDetail/help'),
       }],
     },
     {
