@@ -1,81 +1,40 @@
 <style scoped lang="less">
-  .no-stgs {
-    font-size: 36px;
-    text-align: center;
-    padding-top: 150px;
-    color: gray;
-  }
-  .button-wrapper {
-    position: fixed;
-    bottom: 10px;
-    left: 20px;
-  }
-  .stgs-list {
-    width: 990px;
-    padding-bottom: 80px;
-    padding-top: 20px;
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-    .stg-card {
-      position: relative;
-      width: 310px;
-      margin: 10px;
-      padding: 30px;
-      text-align: left;
-      font-size: 14px;
-      line-height: 2;
-      &:nth-child(3n) {
-        margin-right: 0;
-      }
-      .stg-line-left {
-        width: 120px;
-        display: inline-block;
-      }
-      .stg-options {
-        position: absolute;
-        left: 0;
-        top: 0;
-        display: flex;
-        opacity: 0;
-        height: 0;
-        overflow: hidden;
-        transition: opacity .8s;
-        flex-direction: column;
-        .button {
-          width: 120px;
-          margin: 5px 0 0 5px;
-        }
-      }
-      &:hover {
-        .stg-options {
-          opacity: 1;
-          height: auto;
-        }
-      }
-    }
+  .content-wrapper {
+
   }
 </style>
 <template>
   <div class="stgs">
     <div v-if="loading" class="global-loading"></div>
+    <StrategyDetailReport v-if="pageType === 0" :reports="reports" />
+    <SPreDeployLinkTrader v-if="pageType === 1" :reports="reports" />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { Getter, Action } from 'vuex-class';
-const loginRouterMap = ['signin', 'signup', 'reset'];
+import StrategyDetailReport from './_components/StrategyDetailReport.vue';
+import SPreDeployLinkTrader from './_components/SPreDeployLinkTrader.vue';
+
+
 // const
-@Component({})
+@Component({
+  components: {
+    StrategyDetailReport,
+    SPreDeployLinkTrader,
+  },
+})
+
 export default class Stgs extends Vue {
   @Action('getStgReports') getStgReports!: any;
 
-  // @Getter('reports') stgs!: [];
+  @Getter('reports') reports!: any;
 
   private dialogVisible: boolean = false;
   private stgid: string = '';
   private loading: boolean = true;
+  private pageType: number = -1;
   private stgStatus = {
     test: '测试',
     active: '挂机中',
@@ -108,13 +67,14 @@ export default class Stgs extends Vue {
   // }
 
   async created() {
-    console.log(this.$route.params);
     const { reportid } = this.$route.params;
     // loading
     this.loading = true;
     await this.getStgReports({
       reportid,
     });
+    const { real } = this.reports.report;
+    this.pageType = real ? 1 : 0;
     this.loading = false;
     // loaded
   }

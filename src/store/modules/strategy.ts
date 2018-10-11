@@ -29,6 +29,7 @@ const initState: State = {
 // getters
 const getters = {
   stgs: (state: State) => state.stgs,
+  reports: (state: State) => state.reports,
 };
 
 // actions
